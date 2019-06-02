@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Input } from 'react-native-elements';
 import { ScaledSheet } from 'react-native-size-matters';
+import RNPickerSelect from 'react-native-picker-select';
 
+import countryCodes from './country-codes';
 import errorStrings from './error-strings';
 import validator from './validator';
 import formatter from './formatter';
@@ -17,12 +19,25 @@ const styles = ScaledSheet.create({
   },
   inputs: {
     fontSize: '14@ms',
+    borderBottomColor: 'black',
   },
   intContainer: {
     flex: 25,
   },
   numContainer: {
-    flex: 75,
+    height: '40@ms',
+    borderBottomColor: 'darkgrey',
+  },
+});
+
+const pickerSelectStyles = ScaledSheet.create({
+  inputAndroid: {
+    borderBottomColor: 'darkgrey',
+    borderBottomWidth: 1,
+    fontSize: 16,
+    height: '40@ms',
+    marginHorizontal: '10@ms',
+    color: 'black',
   },
 });
 
@@ -149,10 +164,34 @@ class MobileInputs extends Component {
       disableNumError,
       inputStyles,
     } = this.props;
+    const placeholder = {
+      label: '+1 ',
+      value: null,
+      color: '#9EA0A4',
+    };
 
     return (
       <View style={[styles.container, { ...containerStyle }]}>
-        <Input
+        <View style={[styles.intContainer, { ...intContainerStyle }]}>
+          <RNPickerSelect
+            placeholder={placeholder}
+            items={countryCodes}
+            onValueChange={(value) => {
+              const { inputs } = this.state;
+              const newInput = { ...inputs };
+              newInput.int = value;
+              this.setState({
+                inputs: newInput,
+              }, () => console.log(this.state))}}
+            style={pickerSelectStyles}
+            value={this.state.value}
+            useNativeAndroidPickerStyle={false}
+            ref={(el) => {
+                this.inputRefs = el;
+            }}
+          />
+        </View>
+        {/* <Input
           inputStyle={[styles.inputs, { ...inputStyles }]}
           onEndEditing={(event) => { this.onInputEnd(event, 'intEr', 'mobileNum'); }}
           ref={(mobileInt) => { this.mobileInt = mobileInt; }}
@@ -165,7 +204,7 @@ class MobileInputs extends Component {
           placeholder={placeholderInt}
           errorMessage={!disableIntError ? intEr : null}
           errorStyle={[errorStyleInt]}
-        />
+        /> */}
         <Input
           inputStyle={[styles.inputs, { ...inputStyles }]}
           onEndEditing={(event) => { this.onInputEnd(event, 'numEr', nextRef); }}
@@ -174,7 +213,8 @@ class MobileInputs extends Component {
           maxLength={18}
           value={num}
           onChangeText={text => this.onInputChange(text, 'num')}
-          containerStyle={[styles.numContainer, { ...numContainerStyle }]}
+          inputContainerStyle={[styles.numContainer, { ...numContainerStyle }]}
+          containerStyle={{ flex: 75 }}
           shake={shake}
           placeholder={placeholderNum}
           errorMessage={!disableNumError ? numEr : null}
