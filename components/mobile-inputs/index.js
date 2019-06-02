@@ -174,7 +174,7 @@ class MobileInputs extends Component {
       <View style={[styles.container, { ...containerStyle }]}>
         <View style={[styles.intContainer, { ...intContainerStyle }]}>
           <RNPickerSelect
-            placeholder={placeholder}
+            placeholder={{}}
             items={countryCodes}
             onValueChange={(value) => {
               const { inputs } = this.state;
