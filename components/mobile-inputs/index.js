@@ -15,6 +15,9 @@ const styles = ScaledSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
+  inputs: {
+    fontSize: '14@ms',
+  },
   intContainer: {
     flex: 25,
   },
@@ -144,11 +147,13 @@ class MobileInputs extends Component {
       nextRef,
       disableIntError,
       disableNumError,
+      inputStyles,
     } = this.props;
 
     return (
       <View style={[styles.container, { ...containerStyle }]}>
         <Input
+          inputStyle={[styles.inputs, { ...inputStyles }]}
           onEndEditing={(event) => { this.onInputEnd(event, 'intEr', 'mobileNum'); }}
           ref={(mobileInt) => { this.mobileInt = mobileInt; }}
           keyboardType="number-pad"
@@ -162,6 +167,7 @@ class MobileInputs extends Component {
           errorStyle={[errorStyleInt]}
         />
         <Input
+          inputStyle={[styles.inputs, { ...inputStyles }]}
           onEndEditing={(event) => { this.onInputEnd(event, 'numEr', nextRef); }}
           ref={(mobileNum) => { this.mobileNum = mobileNum; }}
           keyboardType="number-pad"
@@ -192,6 +198,7 @@ MobileInputs.defaultProps = {
   disableIntError: false,
   disableNumError: false,
   disableFormatter: false,
+  inputStyles: {},
 };
 
 MobileInputs.propTypes = {
@@ -207,6 +214,7 @@ MobileInputs.propTypes = {
   disableIntError: PropTypes.bool,
   disableNumError: PropTypes.bool,
   disableFormatter: PropTypes.bool,
+  inputStyles: PropTypes.shape({}),
 };
 
 export default MobileInputs;
