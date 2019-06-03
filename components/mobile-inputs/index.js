@@ -56,19 +56,16 @@ class MobileInputs extends Component {
   }
 
   performValidation = (value) => {
+    if(value.length < 1) return;
     const { disableFormatter } = this.props;
     const { inputs } = this.state;
     const { int } = inputs;
-    try {
-      if (validator[int](value) === true) {
-        this.validationPassed(value);
-        !disableFormatter ? this.formatValidatedValue(value) : value;
-      } else {
-        this.validationFailed();
-        this.formFailedValue(value);
-      }
-    } catch (e) {
-      console.log(e);
+    if (validator[int](value) === true) {
+      this.validationPassed(value);
+      !disableFormatter ? this.formatValidatedValue(value) : value;
+    } else {
+      this.validationFailed();
+      this.formFailedValue(value);
     }
   }
 
