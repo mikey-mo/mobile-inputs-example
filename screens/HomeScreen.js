@@ -12,10 +12,10 @@ export default class HomeScreen extends React.Component {
         <MobileInputs
           onEndInput={(value) => console.log(value)}
         />
-        <MobileInputs
+        {/* <MobileInputs
           disableNumError
           onEndInput={(value) => console.log(value)}
-        />
+        /> */}
       </View>
     );
   }
@@ -23,7 +23,9 @@ export default class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
+    display: 'flex',
+    flexDirection: 'row',
     backgroundColor: '#fff',
   },
 });

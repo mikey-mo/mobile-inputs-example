@@ -13,11 +13,13 @@ import cleaner from './cleaner';
 
 const styles = ScaledSheet.create({
   container: {
+    flex: 1,
+    width: '100%',
     display: 'flex',
     flexDirection: 'row',
   },
   inputs: {
-    fontSize: '16@ms',
+    fontSize: '14@ms',
     borderBottomColor: 'black',
   },
   intContainer: {
@@ -34,7 +36,7 @@ const pickerSelectStyles = ScaledSheet.create({
   inputAndroid: {
     borderBottomColor: 'darkgrey',
     borderBottomWidth: '1@ms',
-    fontSize: '16@ms',
+    fontSize: '14@ms',
     height: '40@ms',
     marginHorizontal: '10@ms',
     color: 'black',
