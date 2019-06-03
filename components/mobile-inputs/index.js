@@ -140,7 +140,7 @@ class MobileInputs extends Component {
       shake,
       nextRef,
       disableNumError,
-      inputStyles,
+      inputStyle,
     } = this.props;
 
     return (
@@ -186,7 +186,7 @@ class MobileInputs extends Component {
           />
         </View>
         <Input
-          inputStyle={[styles.inputs, { ...inputStyles }]}
+          inputStyle={[styles.inputs, { ...inputStyle }]}
           onEndEditing={(event) => { this.onInputEnd(event, nextRef); }}
           ref={(mobileNum) => { this.mobileNum = mobileNum; }}
           keyboardType="number-pad"
@@ -217,7 +217,7 @@ MobileInputs.defaultProps = {
   nextRef: '',
   disableNumError: false,
   disableFormatter: false,
-  inputStyles: {},
+  inputStyle: {},
 };
 
 MobileInputs.propTypes = {
@@ -232,7 +232,7 @@ MobileInputs.propTypes = {
   nextRef: PropTypes.string,
   disableNumError: PropTypes.bool,
   disableFormatter: PropTypes.bool,
-  inputStyles: PropTypes.shape({}),
+  inputStyle: PropTypes.shape({}),
 };
 
 export default MobileInputs;
