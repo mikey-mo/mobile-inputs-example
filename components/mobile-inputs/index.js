@@ -100,11 +100,16 @@ class MobileInputs extends Component {
   }
 
   validationPassed = () => {
+    const { onEndInput } = this.props;
     const state = { ...this.state };
     const { errors } = state;
     errors.numEr = '';
     this.setState({
       errors,
+    }, () => {
+      const { inputs } = this.state;
+      const { int, num } = inputs;
+      return onEndInput(`${int} ${num}`);
     });
   }
 
@@ -191,6 +196,7 @@ class MobileInputs extends Component {
 }
 
 MobileInputs.defaultProps = {
+  onEndInput: () => null,
   placeholderInt: '+1',
   placeholderNum: '(718) 111 2222',
   containerStyle: {},
@@ -206,6 +212,7 @@ MobileInputs.defaultProps = {
 };
 
 MobileInputs.propTypes = {
+  onEndInput: PropTypes.func,
   placeholderInt: PropTypes.string,
   placeholderNum: PropTypes.string,
   containerStyle: PropTypes.shape({}),
