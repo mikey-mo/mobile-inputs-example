@@ -24,6 +24,7 @@ const styles = ScaledSheet.create({
     width: '25%',
   },
   numContainer: {
+    width: '100%',
     height: '40@ms',
     borderBottomColor: 'darkgrey',
   },
