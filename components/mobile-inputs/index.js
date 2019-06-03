@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Input } from 'react-native-elements';
-import { ScaledSheet } from 'react-native-size-matters';
+import { ScaledSheet, moderateScale } from 'react-native-size-matters';
 import RNPickerSelect from 'react-native-picker-select';
 
 import countryCodes from './country-codes';
@@ -13,7 +13,6 @@ import cleaner from './cleaner';
 
 const styles = ScaledSheet.create({
   container: {
-    flex: 1,
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
@@ -23,23 +22,12 @@ const styles = ScaledSheet.create({
     borderBottomColor: 'black',
   },
   intContainer: {
-    width: '25%',
+    width: '30%',
   },
   numContainer: {
     width: '100%',
     height: '40@ms',
     borderBottomColor: 'darkgrey',
-  },
-});
-
-const pickerSelectStyles = ScaledSheet.create({
-  inputAndroid: {
-    borderBottomColor: 'darkgrey',
-    borderBottomWidth: '1@ms',
-    fontSize: '14@ms',
-    height: '40@ms',
-    marginHorizontal: '10@ms',
-    color: 'black',
   },
 });
 
@@ -147,6 +135,7 @@ class MobileInputs extends Component {
       placeholderNum,
       intContainerStyle,
       numContainerStyle,
+      pickerStyle,
       errorStyleNum,
       shake,
       nextRef,
@@ -163,7 +152,6 @@ class MobileInputs extends Component {
             onValueChange={(value) => {
               const { inputs } = this.state;
               const newInput = { ...inputs };
-              const { num } = newInput;
               newInput.int = value;
               this.setState({
                 inputs: newInput,
@@ -171,7 +159,27 @@ class MobileInputs extends Component {
                 const { num } = this.state.inputs;
                 this.performValidation(num);
               })}}
-            style={pickerSelectStyles}
+            style={{
+              inputIOS: {
+                borderBottomColor: 'darkgrey',
+                borderBottomWidth: moderateScale(1),
+                fontSize: moderateScale(14),
+                height: moderateScale(40),
+                marginHorizontal: moderateScale(10),
+                color: 'black',
+                ...pickerStyle,
+              },
+              inputAndroid: {
+                borderBottomColor: 'darkgrey',
+                borderBottomWidth: moderateScale(1),
+                fontSize: moderateScale(14),
+                height: moderateScale(40),
+                marginHorizontal: moderateScale(10),
+                color: 'black',
+                ...pickerStyle,
+              },
+            }}
+            Icon={() => null}
             value={this.state.value}
             useNativeAndroidPickerStyle={false}
             ref={(el) => this.mobileInt = el }
