@@ -18,7 +18,7 @@ const styles = ScaledSheet.create({
     flexDirection: 'row',
   },
   inputs: {
-    fontSize: '14@ms',
+    fontSize: '16@ms',
     borderBottomColor: 'black',
   },
   intContainer: {
