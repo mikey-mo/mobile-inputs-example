@@ -13,7 +13,6 @@ import cleaner from './cleaner';
 
 const styles = ScaledSheet.create({
   container: {
-    flex: 1,
     display: 'flex',
     flexDirection: 'row',
   },
@@ -22,7 +21,7 @@ const styles = ScaledSheet.create({
     borderBottomColor: 'black',
   },
   intContainer: {
-    flex: 25,
+    width: '25%',
   },
   numContainer: {
     height: '40@ms',
@@ -203,7 +202,6 @@ MobileInputs.defaultProps = {
   shake: false,
   numContainerStyle: {},
   intContainerStyle: {},
-  errorStyleInt: {},
   errorStyleNum: {},
   nextRef: '',
   disableNumError: false,
@@ -219,7 +217,6 @@ MobileInputs.propTypes = {
   shake: PropTypes.bool,
   numContainerStyle: PropTypes.shape({}),
   intContainerStyle: PropTypes.shape({}),
-  errorStyleInt: PropTypes.shape({}),
   errorStyleNum: PropTypes.shape({}),
   nextRef: PropTypes.string,
   disableNumError: PropTypes.bool,

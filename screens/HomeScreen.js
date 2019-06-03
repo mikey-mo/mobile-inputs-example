@@ -12,6 +12,10 @@ export default class HomeScreen extends React.Component {
         <MobileInputs
           onEndInput={(value) => console.log(value)}
         />
+        <MobileInputs
+          disableNumError
+          onEndInput={(value) => console.log(value)}
+        />
       </View>
     );
   }
