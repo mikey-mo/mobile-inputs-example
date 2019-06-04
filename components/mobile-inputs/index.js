@@ -13,21 +13,31 @@ import cleaner from './cleaner';
 
 const styles = ScaledSheet.create({
   container: {
-    width: '100%',
+    paddingHorizontal: '10@ms',
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   inputs: {
     fontSize: '14@ms',
-    borderBottomColor: 'black',
   },
   intContainer: {
-    width: '30%',
+    width: '22%',
+    height: '40@ms',
+    borderBottomWidth: '1@ms',
+    justifyContent: 'center',
+  },
+  inputNumContainer: {
+    height: '40@ms',
+    borderBottomWidth: '1@ms',
+    borderBottomColor: 'black',
+    paddingHorizontal: 0,
+    marginHorizontal: 0,
   },
   numContainer: {
-    width: '100%',
-    height: '40@ms',
-    borderBottomColor: 'darkgrey',
+    width: '75%',
+    paddingHorizontal: 0,
+    marginHorizontal: 0,
   },
 });
 
@@ -135,7 +145,8 @@ class MobileInputs extends Component {
       placeholderNum,
       intContainerStyle,
       numContainerStyle,
-      pickerStyle,
+      inputNumContainerStyle,
+      pickerInputStyle,
       errorStyleNum,
       shake,
       nextRef,
@@ -161,22 +172,12 @@ class MobileInputs extends Component {
               })}}
             style={{
               inputIOS: {
-                borderBottomColor: 'darkgrey',
-                borderBottomWidth: moderateScale(1),
                 fontSize: moderateScale(14),
-                height: moderateScale(40),
-                marginHorizontal: moderateScale(10),
-                color: 'black',
-                ...pickerStyle,
+                ...pickerInputStyle,
               },
               inputAndroid: {
-                borderBottomColor: 'darkgrey',
-                borderBottomWidth: moderateScale(1),
                 fontSize: moderateScale(14),
-                height: moderateScale(40),
-                marginHorizontal: moderateScale(10),
-                color: 'black',
-                ...pickerStyle,
+                ...pickerInputStyle,
               },
             }}
             Icon={() => null}
@@ -193,8 +194,8 @@ class MobileInputs extends Component {
           maxLength={18}
           value={num}
           onChangeText={text => this.onInputChange(text)}
-          inputContainerStyle={[styles.numContainer, { ...numContainerStyle }]}
-          containerStyle={{ flex: 75 }}
+          inputContainerStyle={[styles.inputNumContainer, { ...inputNumContainerStyle }]}
+          containerStyle={[styles.numContainer, { ...numContainerStyle }]}
           shake={shake}
           placeholder={placeholderNum}
           errorMessage={!disableNumError ? numEr : null}
@@ -212,6 +213,7 @@ MobileInputs.defaultProps = {
   containerStyle: {},
   shake: false,
   numContainerStyle: {},
+  inputNumContainerStyl: {},
   intContainerStyle: {},
   errorStyleNum: {},
   nextRef: '',
@@ -227,6 +229,7 @@ MobileInputs.propTypes = {
   containerStyle: PropTypes.shape({}),
   shake: PropTypes.bool,
   numContainerStyle: PropTypes.shape({}),
+  inputNumContainerStyle: PropTypes.shape({}),  
   intContainerStyle: PropTypes.shape({}),
   errorStyleNum: PropTypes.shape({}),
   nextRef: PropTypes.string,
