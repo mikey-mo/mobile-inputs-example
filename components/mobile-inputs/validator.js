@@ -9,7 +9,7 @@ const validations = {
   "+44": (value) => {
     const cleanValue = cleaner(value);
     if (cleanValue.length !== 11) return false;
-    if (cleanValue[0] !== '0') return false;
+    if (cleanValue[0] !== '0' || cleanValue[1] !== '7') return false;
     return !!value;
   },
   "+33": (value) => {
