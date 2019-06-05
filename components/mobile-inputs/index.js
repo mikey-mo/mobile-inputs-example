@@ -83,7 +83,8 @@ class MobileInputs extends Component {
   formatValidatedValue = (value) => {
     const { inputs } = this.state;
     const { int } = inputs;
-    const formattedValue = formatter[int](value);
+    const cleanValue = cleaner(value);
+    const formattedValue = formatter[int](cleanValue);
     const newInput = { ...inputs };
     newInput.num = formattedValue;
     this.setState({
