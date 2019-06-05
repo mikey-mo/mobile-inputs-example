@@ -9,6 +9,7 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View>
+        <Input />
         <MobileInputs
           onEndNumInput={(value) => console.log(value)}
         />
