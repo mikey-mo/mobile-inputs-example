@@ -229,7 +229,7 @@ MobileInputs.propTypes = {
   inputNumContainerStyle: PropTypes.shape({}),  
   intContainerStyle: PropTypes.shape({}),
   errorStyleNum: PropTypes.shape({}),
-  nextRef: PropTypes.string,
+  nextRefFocus: PropTypes.func,
   disableNumError: PropTypes.bool,
   disableFormatter: PropTypes.bool,
   inputStyle: PropTypes.shape({}),
