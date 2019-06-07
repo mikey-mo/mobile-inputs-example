@@ -103,7 +103,7 @@ class MobileInputs extends Component {
   }
 
   validationPassed = () => {
-    const { onEndNumInput } = this.props;
+    const { onEndNumInput, splitIntAndNum } = this.props;
     const state = { ...this.state };
     const { errors } = state;
     errors.numEr = '';
@@ -112,6 +112,9 @@ class MobileInputs extends Component {
     }, () => {
       const { inputs } = this.state;
       const { int, num } = inputs;
+      if (splitIntAndNum === true) {
+        return onEndNumInput({ int, num });
+      }
       return onEndNumInput(`${int} ${num}`);
     });
   }
@@ -207,6 +210,7 @@ class MobileInputs extends Component {
 }
 
 MobileInputs.defaultProps = {
+  splitIntAndNum: false,
   onEndNumInput: () => null,
   pickerInputStyle: {},
   placeholderNum: '(718) 111 2222',
@@ -223,6 +227,7 @@ MobileInputs.defaultProps = {
 };
 
 MobileInputs.propTypes = {
+  splitIntAndNum: PropTypes.bool,
   pickerInputStyle: PropTypes.shape({}),
   onEndNumInput: PropTypes.func,
   placeholderNum: PropTypes.string,

@@ -20,7 +20,8 @@ export default class HomeScreen extends React.Component {
         />
         <MobileInputs
           // disableNumError
-          disableFormatter
+          // disableFormatter
+          splitIntAndNum
           nextRefFocus={this.nextRefFocus}
           onEndNumInput={(value) => console.log(value)}
         />
