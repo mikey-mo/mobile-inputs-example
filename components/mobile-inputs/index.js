@@ -1,6 +1,8 @@
+/* eslint-disable */
 import React, { Component } from 'react';
+import { View } from 'react-native';
+/* eslint-enable */
 import PropTypes from 'prop-types';
-import { View, Picker } from 'react-native';
 import { Input } from 'react-native-elements';
 import { ScaledSheet, moderateScale } from 'react-native-size-matters';
 import RNPickerSelect from 'react-native-picker-select';
@@ -58,12 +60,12 @@ class MobileInputs extends Component {
 
   performValidation = () => {
     const { inputs } = this.state;
-    const { disableFormatter } = this.props;    
+    const { disableFormatter } = this.props;
     const { num, int } = inputs;
-    if(num.length < 1) return;
+    if (num.length < 1) return;
     if (validator[int](cleaner(num)) === true) {
       this.validationPassed();
-      !disableFormatter ? this.formatValidatedValue(num) : num;
+      if (disableFormatter === false) this.formatValidatedValue(num);
     } else {
       this.validationFailed();
       this.formFailedValue();
@@ -160,7 +162,6 @@ class MobileInputs extends Component {
             placeholder={{}}
             items={countryCodes}
             onValueChange={(value) => {
-              const { inputs } = this.state;
               const newInput = { ...inputs };
               newInput.int = value;
               this.setState({
@@ -168,7 +169,8 @@ class MobileInputs extends Component {
               }, () => {
                 this.performValidation();
                 this.mobileNum.focus();
-              })}}
+              });
+            }}
             style={{
               inputIOS: {
                 fontSize: moderateScale(14),
@@ -180,9 +182,8 @@ class MobileInputs extends Component {
               },
             }}
             Icon={() => null}
-            value={this.state.value}
             useNativeAndroidPickerStyle={false}
-            ref={(el) => this.mobileInt = el }
+            ref={(el) => { this.mobileInt = el; }}
           />
         </View>
         <Input
@@ -207,11 +208,12 @@ class MobileInputs extends Component {
 
 MobileInputs.defaultProps = {
   onEndNumInput: () => null,
+  pickerInputStyle: {},
   placeholderNum: '(718) 111 2222',
   containerStyle: {},
   shake: false,
   numContainerStyle: {},
-  inputNumContainerStyl: {},
+  inputNumContainerStyle: {},
   intContainerStyle: {},
   errorStyleNum: {},
   nextRefFocus: () => null,
@@ -221,12 +223,13 @@ MobileInputs.defaultProps = {
 };
 
 MobileInputs.propTypes = {
+  pickerInputStyle: PropTypes.shape({}),
   onEndNumInput: PropTypes.func,
   placeholderNum: PropTypes.string,
   containerStyle: PropTypes.shape({}),
   shake: PropTypes.bool,
   numContainerStyle: PropTypes.shape({}),
-  inputNumContainerStyle: PropTypes.shape({}),  
+  inputNumContainerStyle: PropTypes.shape({}),
   intContainerStyle: PropTypes.shape({}),
   errorStyleNum: PropTypes.shape({}),
   nextRefFocus: PropTypes.func,

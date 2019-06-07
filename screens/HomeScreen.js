@@ -4,6 +4,7 @@ import {
 } from 'react-native';
 import { Input } from 'react-native-elements';
 import MobileInputs from '../components/mobile-inputs';
+// import MobileInputs from 'react-native-mobile-inputs';
 
 export default class HomeScreen extends React.Component {
   nextRefFocus = () => {
@@ -19,6 +20,7 @@ export default class HomeScreen extends React.Component {
         />
         <MobileInputs
           // disableNumError
+          disableFormatter
           nextRefFocus={this.nextRefFocus}
           onEndNumInput={(value) => console.log(value)}
         />
