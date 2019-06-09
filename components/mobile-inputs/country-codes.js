@@ -19,6 +19,10 @@ const countryCodes = [
     label: 'AUS +61',
     value: '+61',
   },
+  {
+    label: 'SWE +46',
+    value: '+46',
+  },
 ];
 
 export default countryCodes;

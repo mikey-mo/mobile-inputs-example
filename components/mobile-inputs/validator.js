@@ -25,6 +25,12 @@ const validations = {
     if (value[2] !== '5' && value[2] !== '6') return false;
     return !!value;
   },
+  '+46': (value) => {
+    if (value.length !== 10) return false;
+    if (value[0] !== '0') return false;
+    if (value[1] !== '7') return false;
+    return !!value;
+  },
 };
 
 export default validations;
