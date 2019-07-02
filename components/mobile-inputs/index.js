@@ -67,7 +67,8 @@ class MobileInputs extends Component {
     const { disableFormatter } = this.props;
     const { num, int } = inputs;
     if (num.length < 1) return;
-    if (validator[int](cleaner(num)) === true) {
+    const isValid = validator({ num, int });
+    if (isValid) {
       this.validationPassed();
       if (disableFormatter === false) this.formatValidatedValue(num);
     } else {
@@ -89,7 +90,7 @@ class MobileInputs extends Component {
   formatValidatedValue = () => {
     const { inputs } = this.state;
     const { int, num } = inputs;
-    const formattedValue = formatter[int](cleaner(num));
+    const formattedValue = formatter({ int, num });
     const newInput = { ...inputs };
     newInput.num = formattedValue;
     this.setState({
