@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import { AntDesign } from 'react-native-vector-icons';
 /* eslint-enable */
 import PropTypes from 'prop-types';
 import { Input } from 'react-native-elements';
@@ -24,11 +25,14 @@ const styles = ScaledSheet.create({
     fontSize: '14@ms',
   },
   intContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     width: '22%',
     height: '40@ms',
     borderBottomWidth: '1@ms',
     borderBottomColor: '#86939e',
-    justifyContent: 'center',
   },
   inputNumContainer: {
     height: '40@ms',
@@ -128,6 +132,17 @@ class MobileInputs extends Component {
     });
   }
 
+  onRNPickerValueChange = (inputs, value) => {
+    const newInput = { ...inputs };
+    newInput.int = value;
+    this.setState({
+      inputs: newInput,
+    }, () => {
+      this.performValidation();
+      this.mobileNum.focus();
+    });
+  }
+
   onInputEnd = () => {
     const { nextRefFocus } = this.props;
     this.performValidation();
@@ -151,17 +166,24 @@ class MobileInputs extends Component {
       intContainerStyle,
       numContainerStyle,
       inputNumContainerStyle,
-      pickerInputStyle,
+      iosInputStyle,
+      androidInputStyle,
       errorStyleNum,
       shake,
       disableNumError,
       inputStyle,
+      pickerProps,
+      inputProps,
+      pickerIconName,
+      pickerIconColor,
+      hidePickericon,
     } = this.props;
 
     return (
       <View style={[styles.container, { ...containerStyle }]}>
         <View style={[styles.intContainer, { ...intContainerStyle }]}>
           <RNPickerSelect
+            { ...pickerProps }
             placeholder={{}}
             items={countryCodes}
             onValueChange={(value) => {
@@ -177,19 +199,32 @@ class MobileInputs extends Component {
             style={{
               inputIOS: {
                 fontSize: moderateScale(14),
-                ...pickerInputStyle,
+                ...iosInputStyle,
               },
               inputAndroid: {
+                width: moderateScale(75),
                 fontSize: moderateScale(14),
-                ...pickerInputStyle,
+                ...androidInputStyle,
               },
             }}
             Icon={() => null}
             useNativeAndroidPickerStyle={false}
             ref={(el) => { this.mobileInt = el; }}
           />
+          {!hidePickericon
+            && (
+              <AntDesign
+                name={pickerIconName}
+                style={{
+                  position: 'relative',
+                  right: moderateScale(8),
+                  color: pickerIconColor,
+                }}
+              />
+            )}
         </View>
         <Input
+          { ...inputProps }
           inputStyle={[styles.inputs, { ...inputStyle }]}
           onEndEditing={this.onInputEnd}
           ref={(mobileNum) => { this.mobileNum = mobileNum; }}
@@ -210,6 +245,8 @@ class MobileInputs extends Component {
 }
 
 MobileInputs.defaultProps = {
+  inputProps: {},
+  pickerProps: {},
   splitIntAndNum: false,
   onEndNumInput: () => null,
   pickerInputStyle: {},
@@ -223,10 +260,16 @@ MobileInputs.defaultProps = {
   nextRefFocus: () => null,
   disableNumError: false,
   disableFormatter: false,
-  inputStyle: {},
+  iosInputStyle: {},
+  androidInputStyle: {},
+  pickerIconName: 'caretdown',
+  pickerIconColor: 'black',
+  hidePickericon: false,
 };
 
 MobileInputs.propTypes = {
+  inputProps: PropTypes.shape({}),
+  pickerProps: PropTypes.shape({}),
   splitIntAndNum: PropTypes.bool,
   pickerInputStyle: PropTypes.shape({}),
   onEndNumInput: PropTypes.func,
@@ -241,6 +284,8 @@ MobileInputs.propTypes = {
   disableNumError: PropTypes.bool,
   disableFormatter: PropTypes.bool,
   inputStyle: PropTypes.shape({}),
+  pickerIconName: PropTypes.string,
+  pickerIconColor: PropTypes.string,
 };
 
 export default MobileInputs;
