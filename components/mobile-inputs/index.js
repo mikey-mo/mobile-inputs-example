@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 import { AntDesign } from 'react-native-vector-icons';
 /* eslint-enable */
 import PropTypes from 'prop-types';
@@ -14,6 +14,8 @@ import validator from './validator';
 import formatter from './formatter';
 import cleaner from './cleaner';
 
+const isAndroid = Platform.OS === 'android';
+
 const styles = ScaledSheet.create({
   container: {
     paddingHorizontal: '10@ms',
@@ -25,14 +27,13 @@ const styles = ScaledSheet.create({
     fontSize: '14@ms',
   },
   intContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     width: '22%',
     height: '40@ms',
     borderBottomWidth: '1@ms',
     borderBottomColor: '#86939e',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   inputNumContainer: {
     height: '40@ms',
@@ -194,16 +195,17 @@ class MobileInputs extends Component {
                 inputs: newInput,
               }, () => {
                 this.performValidation();
-                this.mobileNum.focus();
+                isAndroid ? this.mobileNum.focus() : null;
               });
             }}
+            onDonePress={() => this.mobileNum.focus()}
             style={{
               inputIOS: {
+                paddingTop: moderateScale(10),
                 fontSize: moderateScale(14),
                 ...iosInputStyle,
               },
               inputAndroid: {
-                width: moderateScale(75),
                 fontSize: moderateScale(14),
                 ...androidInputStyle,
               },
@@ -216,11 +218,7 @@ class MobileInputs extends Component {
             && (
               <AntDesign
                 name={pickerIconName}
-                style={{
-                  position: 'relative',
-                  right: moderateScale(8),
-                  color: pickerIconColor,
-                }}
+                style={{ color: pickerIconColor }}
               />
             )}
         </View>
